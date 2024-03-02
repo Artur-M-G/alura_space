@@ -1,0 +1,62 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+            <section class="conteudo">
+                <section class="banner">
+                    <img class="banner__imagem" src="{% static '/assets/imagens/Banner(2).png' %}" alt="banner Alura Space">
+                    <h1 class="banner__titulo">The most complete gallery of space photos!</h1>
+                </section>
+                <section class="tags">
+                    <p class="tags__titulo">Search by tags:</p>
+                    <ul class="tags__lista">
+                        <li class="tags__tag">
+                            <a href="{% url 'index' %}" style="color: #C9C9C9; text-decoration: none; display: block;">
+                                All
+                            </a>
+                        </li>
+                        {% for category in categories %}
+                        <li class="tags__tag">
+                            <a href="{% url 'filter' category %}" style="color: #C9C9C9; text-decoration: none; display: block;">
+                                {% if category == 'NA' %}
+                                N/A
+                                {% else %}
+                                {{ category }}
+                                {% endif %}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+                <section class="galeria">
+                    <div class="cards">
+                        <h2 class="cards__titulo">Browse the gallery</h2>
+                        <ul class="cards__lista">
+                            {% if cards %}
+                                {% for card in cards %}
+                                    <li class="card">
+                                        <a href="{% url 'image' card.id %}">
+                                            {% if card.photo == '' or  card.photo == null%}
+                                            <img class="card__imagem" src="{% static 'assets/imagens/galeria/cat.png' %}" alt="foto">
+                                            {% else %}
+                                            <img class="card__imagem" src="{{ card.photo.url }}" alt="foto">
+                                            {% endif %}
+                                        </a>
+                                        <span class="card__tag">{{ card.get_category_display }}</span>
+                                        <div class="card__info">
+                                            <p class="card__titulo">{{ card.name }}</p>
+                                            <div class="card__texto">
+                                                <p class="card__descricao">{{ card.subtitle }}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                    <p style="color: white;">No photos were found!</p>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+{% endblock %}

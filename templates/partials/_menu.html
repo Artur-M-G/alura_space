@@ -1,0 +1,11 @@
+{% load static %}
+<main class="principal">
+    <section class="menu-lateral">
+        <nav class="menu-lateral__navegacao">
+            <a href="{% url 'index' %}"><img src="{% static '/assets/ícones/1x/Home - ativo.png' %}"> Home</a>
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'singup' %}">SignUp</a>
+            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'create' %}">Create Image</a>
+        </nav>
+    </section>
